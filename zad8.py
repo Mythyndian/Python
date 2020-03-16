@@ -17,7 +17,7 @@ class Pet:
         if 5 < self.hunger + self.tiredness < 10:
             return 'Pleased'
 
-        if 11 < self.hunger + self.tiredness < 5:
+        if 11 < self.hunger + self.tiredness < 15:
             return 'Angry'
 
     def _passage_of_time(self):
