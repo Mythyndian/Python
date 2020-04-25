@@ -45,6 +45,9 @@ class SortedList(collections.abc.Sequence):
         else:
             return False
 
+    def __copy__(self):
+        pass
+
     def _find_index(self, value):
         i = bisect_right(self._sequence, value)
         if i:
@@ -69,11 +72,21 @@ class SortedList(collections.abc.Sequence):
         while value in self._sequence:
             self._sequence.pop(self._find_index(value))
 
+    def index(self, value):
+        return self._find_index(value)
+
+    def count(self, value):
+        return self._sequence.count(value)
+
+    def extend(self, iterable_object):
+        for i in iterable_object:
+            self._sequence.append(i)
+
 
 def main():
     student_tuples = [9, 7, 3, 2, 1, 1]
-    student_tuples[0] = 10
-    print(student_tuples)
+
+    print(student_tuples.count(1))
 
 
 if __name__ == '__main__':
