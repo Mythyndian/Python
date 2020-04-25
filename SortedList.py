@@ -1,7 +1,10 @@
 import collections.abc
+import copy
 from bisect import bisect_right
 
-_identity = lambda x: x
+
+def _identity():
+    return lambda x: x
 
 
 class SortedList(collections.abc.Sequence):
@@ -10,7 +13,7 @@ class SortedList(collections.abc.Sequence):
         return self._key
 
     def __init__(self, sequence=None, key=None):
-        self._key = key or _identity
+        self._key = key or _identity()
         # breaks if key is not callable
         assert isinstance(self._key, collections.abc.Callable)
         self._sequence = list(sequence)
@@ -46,7 +49,7 @@ class SortedList(collections.abc.Sequence):
             return False
 
     def __copy__(self):
-        pass
+        return copy.copy(self)
 
     def _find_index(self, value):
         i = bisect_right(self._sequence, value)
@@ -78,16 +81,9 @@ class SortedList(collections.abc.Sequence):
     def count(self, value):
         return self._sequence.count(value)
 
+    def copy(self):
+        self.__copy__()
+
     def extend(self, iterable_object):
         for i in iterable_object:
             self._sequence.append(i)
-
-
-def main():
-    student_tuples = [9, 7, 3, 2, 1, 1]
-
-    print(student_tuples.count(1))
-
-
-if __name__ == '__main__':
-    main()
